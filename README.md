@@ -4,6 +4,8 @@ Basic Django boilerplate.
 
 ### Test
 
+`docker compose run --rm app sh -c "python manage.py test"`
+
 ### View linter warnings
 
 `docker-compose run --rm app sh -c "flake8"`
