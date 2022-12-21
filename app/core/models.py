@@ -1,3 +1,3 @@
-from django.db import models
+from django.db import models  # noqa TODO: delete comment
 
 # Create your models here.

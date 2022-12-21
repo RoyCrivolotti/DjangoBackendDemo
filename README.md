@@ -16,7 +16,8 @@ Basic Django boilerplate.
 
 ### Develop
 
-- Run `docker compose run --rm app sh -c "django-admin startproject {PROJECT_NAME} ."` to add a new project
-  within `app/`.
-- Alternatively, the same is achieved
-  with `docker compose run --rm app sh -c "python manage.py startapp {PROJECT_NAME}"`. [See docs regarding the difference between these two command here](https://docs.djangoproject.com/en/dev/ref/django-admin/).
+- Run `docker compose run --rm app sh -c "django-admin startproject {PROJECT_NAME} ."` to create a new project.
+- Later,
+  use `docker compose run --rm app sh -c "python manage.py startapp {PROJECT_NAME}"` to create a new app within your
+  project. [See docs regarding the difference between these two command here](https://docs.djangoproject.com/en/dev/ref/django-admin/).
+    - Remember to add the new app to the `INSTALLED_APPS` list within `app/app/settings.py`.
