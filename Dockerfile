@@ -16,7 +16,8 @@ RUN python -m venv /py && \
     # Package postgresql-client is needed for the PostgreSQL adapter to run
     apk add --update --no-cache postgresql-client && \
     # The 3 packages below are needed for the PostgreSQL adapter to install, and not afterwards, hence the `--virtual` \
-    # which creats a virtual dependency package called `.tmp-build-deps`
+    # which creates a virtual dependency package called `.tmp-build-deps`: See \
+    # https://www.psycopg.org/docs/install.html and https://github.com/Docker-Hub-frolvlad/docker-alpine-python3/issues/1
     apk add --update --no-cache --virtual .tmp-build-deps \
         build-base postgresql-dev musl-dev && \
     /py/bin/pip install -r /tmp/requirements.txt && \
