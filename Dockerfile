@@ -26,11 +26,13 @@ RUN python -m venv /py && \
     # Deleting temp folder and virtual dependency package, for which we have no longer any use for
     rm -rf /tmp && \
     apk del .tmp-build-deps && \
+    # Avoid using the root user to avoid security issues
     adduser \
         --disabled-password \
         --no-create-home \
         django-user
 
+#Updating the PATH env variable within the image, so that every Python command executed runs from the virtual env
 ENV PATH="/py/bin:$PATH"
 
 USER django-user
