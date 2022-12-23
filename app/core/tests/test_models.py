@@ -16,11 +16,11 @@ class ModelTests(TestCase):
 
     def test_new_user_with_email_normalized(self):
         emails = [
-            ["asd@GMAIL.com", "asd@gmail.com"],
-            ["ASD@gmail.com", "ASD@gmail.com"],
-            ["ASD@GMAIL.com", "ASD@gmail.com"],
-            ["ASD@gmail.COM", "ASD@gmail.com"],
-            ["ASD@GMAIL.COM", "ASD@gmail.com"],
+            ["asd1@GMAIL.com", "asd1@gmail.com"],
+            ["ASD2@gmail.com", "ASD2@gmail.com"],
+            ["ASD3@GMAIL.com", "ASD3@gmail.com"],
+            ["ASD4@gmail.COM", "ASD4@gmail.com"],
+            ["ASD5@GMAIL.COM", "ASD5@gmail.com"],
         ]
 
         for email, expected in emails:
