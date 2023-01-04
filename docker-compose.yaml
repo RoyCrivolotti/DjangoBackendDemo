@@ -12,6 +12,7 @@ services:
       # Updates made to the code will automatically be reflected in the running container
       # so that every line of code modified is automatically synced to the code running in the container
       - ./app:/app
+      - static-db-data:/vol/web
     command: >
       sh -c "python manage.py wait_for_db &&
       python manage.py migrate &&

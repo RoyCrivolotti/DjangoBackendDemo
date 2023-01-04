@@ -31,7 +31,10 @@ RUN python -m venv /py && \
     adduser \
         --disabled-password \
         --no-create-home \
-        django-user
+        django-user && \
+    mkdir -p /vol/web/media /vol/web/static && \
+    chown -R django-user:django-user /vol && \
+    chmod 755 /vol
 
 #Updating the PATH env variable within the image, so that every Python command executed runs from the virtual env
 ENV PATH="/py/bin:$PATH"
