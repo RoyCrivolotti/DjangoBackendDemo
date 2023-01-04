@@ -1,6 +1,6 @@
 # DjangoBackendDemo
 
-Basic Django boilerplate.
+Django project following [this Udemy course](https://udemy.com/course/django-python-advanced).
 
 ### Test
 
