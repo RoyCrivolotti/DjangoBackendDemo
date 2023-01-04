@@ -8,16 +8,13 @@ from rest_framework.test import APIClient
 from core.models import (Tag, Recipe)
 
 from recipe.serializers import TagSerializer
+from test_utils import create_user
 
 TAGS_URL = reverse('recipe:tag-list')
 
 
 def detail_url(tag_id):
     return reverse('recipe:tag-detail', args=[tag_id])
-
-
-def create_user(email='user@example.com', password='testpass123'):
-    return get_user_model().objects.create_user(email=email, password=password)
 
 
 class PublicTagsApiTests(TestCase):

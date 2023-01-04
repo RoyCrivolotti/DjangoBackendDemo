@@ -13,6 +13,7 @@ from recipe.serializers import (
     RecipeSerializer,
     RecipeDetailSerializer,
 )
+from test_utils import create_user
 
 RECIPES_URL = reverse('recipe:recipe-list')
 
@@ -29,10 +30,6 @@ def create_recipe(user, **params):
 
     recipe = Recipe.objects.create(user=user, **defaults)
     return recipe
-
-
-def create_user(**params):
-    return get_user_model().objects.create_user(**params)
 
 
 def detail_url(recipe_id):
