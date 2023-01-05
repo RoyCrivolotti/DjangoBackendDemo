@@ -36,8 +36,7 @@ RUN python -m venv /py && \
     mkdir -p /vol/web/media /vol/web/static && \
     chown -R django-user:django-user /vol && \
     chmod -R 755 /vol && \
-    chmod -R +x /scripts && \
-    chmod -R +x /scripts/run.sh
+    chmod -R +x /scripts
 
 #Updating the PATH env variable within the image, so that every Python command executed runs from the virtual env
 ENV PATH="/scripts:/py/bin:$PATH"
