@@ -5,6 +5,7 @@ ENV PYTHONUNBUFFERED 1
 
 COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
+COPY ./scripts /scripts
 COPY ./app /app
 WORKDIR /app
 EXPOSE 8000
@@ -19,7 +20,7 @@ RUN python -m venv /py && \
     # which creates a virtual dependency package called `.tmp-build-deps`: See \
     # https://www.psycopg.org/docs/install.html and https://github.com/Docker-Hub-frolvlad/docker-alpine-python3/issues/1
     apk add --update --no-cache --virtual .tmp-build-deps \
-        build-base postgresql-dev musl-dev zlib zlib-dev && \
+        build-base postgresql-dev musl-dev zlib zlib-dev linux-headers && \
     /py/bin/pip install -r /tmp/requirements.txt && \
     if [ $DEV = "true" ]; \
       then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
@@ -34,9 +35,13 @@ RUN python -m venv /py && \
         django-user && \
     mkdir -p /vol/web/media /vol/web/static && \
     chown -R django-user:django-user /vol && \
-    chmod 755 /vol
+    chmod -R 755 /vol && \
+    chmod -R +x /scripts && \
+    chmod -R +x /scripts/run.sh
 
 #Updating the PATH env variable within the image, so that every Python command executed runs from the virtual env
-ENV PATH="/py/bin:$PATH"
+ENV PATH="/scripts:/py/bin:$PATH"
 
 USER django-user
+
+CMD ["run.sh"]

@@ -12,7 +12,7 @@ services:
       # Updates made to the code will automatically be reflected in the running container
       # so that every line of code modified is automatically synced to the code running in the container
       - ./app:/app
-      - static-db-data:/vol/web
+      - dev-static-db-data:/vol/web
     command: >
       sh -c "python manage.py wait_for_db &&
       python manage.py migrate &&
@@ -22,17 +22,18 @@ services:
       - DB_NAME=devdb
       - DB_USER=devuser
       - DB_PASSWORD=devpassword
+      - DEBUG=1
     depends_on:
       - db
   db:
     image: postgres:13-alpine # Docs: https://hub.docker.com/_/postgres
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - dev-db-data:/var/lib/postgresql/data
     environment: # Credentials for local development and testing
       - POSTGRES_DB=devdb
       - POSTGRES_USER=devuser
       - POSTGRES_PASSWORD=devpassword
 
 volumes:
-  db-data:
-  static-db-data:
+  dev-db-data:
+  dev-static-db-data:

@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: . # Use dockerfile in the current location
+    restart: always # Restart automatically if the app crashes
+    volumes:
+      - static-data:/vol/web # Volume to serve static data through Nginx proxy
+    environment:
+      - DB_HOST=db
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - SECRET_KEY=${DJANGO_SECRET_KEY}
+      - ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
+    depends_on:
+      - db # db should start first
+
+  db:
+    image: postgres:13-alpine
+    restart: always
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+
+  proxy:
+    build:
+      context: ./proxy # Build the image for this service from ./proxy
+    restart: always
+    depends_on:
+      - app # Start the app first
+    ports:
+      - "8000:8000"
+    volumes:
+      - static-data:/vol/static
+
+volumes:
+  db-data:
+  static-data:
